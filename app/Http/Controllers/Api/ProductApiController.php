@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\Request;
 
 class ProductApiController extends Controller
@@ -16,10 +18,9 @@ class ProductApiController extends Controller
      */
     public function index()
     {
-        $products = Product::query()
-            ->getQuery()
-            ->orderBy('name')
-            ->get();
+        $products = Product::with(['category' => function (BelongsTo $query) {
+            $query->orderBy('name');
+        }])->get();
 
         return new ProductCollection($products);
     }
@@ -41,9 +42,9 @@ class ProductApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return new ProductResource($product);
     }
 
     /**
