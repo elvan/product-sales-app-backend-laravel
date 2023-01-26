@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -26,14 +27,21 @@ class ProductApiController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create(CreateProductRequest $request)
     {
-        //
+        // Validate the request
+        $fields = $request->validated();
+
+        // Create a new product
+        $product = Product::create($fields);
+
+        // Return the product as a resource
+        return new ProductResource($product);
     }
 
     /**
