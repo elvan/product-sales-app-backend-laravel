@@ -54,6 +54,10 @@ class TransactionApiController extends Controller
                 // Find a product by id
                 $product = Product::find($item['product_id']);
 
+                // Check if the quantity is available
+                if ($product->quantity_in_stock < $item['quantity']) {
+                    abort(400, 'The quantity is not available');
+                }
 
                 // Create a new transaction item
                 $transactionItem = new TransactionItem([
