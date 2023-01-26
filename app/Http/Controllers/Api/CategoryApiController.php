@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -26,14 +28,21 @@ class CategoryApiController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function create(CreateCategoryRequest $request)
     {
-        //
+        // Validate the request
+        $fields = $request->validated();
+
+        // Create a new category with the validated fields
+        $category = Category::create($fields);
+
+        // Return the category as a resource
+        return CategoryResource::make($category);
     }
 
     /**
