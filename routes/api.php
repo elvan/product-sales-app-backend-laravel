@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Category
 Route::get('/categories', [CategoryApiController::class, 'index']);
+Route::get('/categories/{category}', [CategoryApiController::class, 'show']);
 Route::post('/categories', [CategoryApiController::class, 'create']);
