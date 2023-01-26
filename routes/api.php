@@ -30,3 +30,4 @@ Route::put('/categories/{category}', [CategoryApiController::class, 'update']);
 Route::get('/products', [ProductApiController::class, 'index']);
 Route::get('/products/{product}', [ProductApiController::class, 'show']);
 Route::post('/products', [ProductApiController::class, 'create']);
+Route::put('/products/{product}', [ProductApiController::class, 'update']);
