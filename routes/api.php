@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryApiController;
+use App\Http\Controllers\Api\ProductApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,6 @@ Route::get('/categories', [CategoryApiController::class, 'index']);
 Route::get('/categories/{category}', [CategoryApiController::class, 'show']);
 Route::post('/categories', [CategoryApiController::class, 'create']);
 Route::put('/categories/{category}', [CategoryApiController::class, 'update']);
+
+// Product
+Route::get('/products', [ProductApiController::class, 'index']);
