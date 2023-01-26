@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_name');
-            $table->unsignedDecimal('total_price');
-            $table->unsignedInteger('items_quantity');
-            $table->timestamp('completed_at');
+            $table->string('customer_name')->default('');
+            $table->unsignedDecimal('total_price', 20)->default(0);
+            $table->timestamp('added_at')->default(now());
             $table->timestamps();
         });
     }

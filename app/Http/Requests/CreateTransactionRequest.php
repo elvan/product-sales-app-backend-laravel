@@ -24,7 +24,12 @@ class CreateTransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'customer_name' => 'required|string|max:255',
+            'added_at' => 'required|date',
+            'items' => 'required|array',
+            'items.*.line_number' => 'required|integer',
+            'items.*.product_id' => 'required|integer',
+            'items.*.quantity' => 'required|integer',
         ];
     }
 }

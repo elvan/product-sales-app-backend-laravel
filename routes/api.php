@@ -36,3 +36,5 @@ Route::delete('/products/{product}', [ProductApiController::class, 'delete']);
 
 // Transactions
 Route::get('/transactions', [TransactionApiController::class, 'index']);
+Route::get('/transactions/{transaction}', [TransactionApiController::class, 'show']);
+Route::post('/transactions', [TransactionApiController::class, 'create']);
