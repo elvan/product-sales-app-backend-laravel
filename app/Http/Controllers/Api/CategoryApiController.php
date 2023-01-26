@@ -4,17 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryApiController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -24,7 +22,7 @@ class CategoryApiController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        return CategoryCollection::make($categories);
+        return new CategoryCollection($categories);
     }
 
     /**
@@ -42,7 +40,7 @@ class CategoryApiController extends Controller
         $category = Category::create($fields);
 
         // Return the category as a resource
-        return CategoryResource::make($category);
+        return new CategoryResource($category);
     }
 
     /**
@@ -53,7 +51,7 @@ class CategoryApiController extends Controller
      */
     public function show(Category $category)
     {
-        return CategoryResource::make($category);
+        return new CategoryResource($category);
     }
 
     /**
@@ -63,9 +61,16 @@ class CategoryApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        // Validate the request
+        $fields = $request->validated();
+
+        // Update the category with the validated fields
+        $category->update($fields);
+
+        // Return the category as a resource
+        return new CategoryResource($category);
     }
 
     /**
