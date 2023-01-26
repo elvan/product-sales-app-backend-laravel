@@ -81,8 +81,14 @@ class ProductApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Product $product)
     {
-        //
+        // Delete the product
+        $product->delete();
+
+        // Return a response
+        return response()->json([
+            'message' => 'Product deleted successfully',
+        ]);
     }
 }
